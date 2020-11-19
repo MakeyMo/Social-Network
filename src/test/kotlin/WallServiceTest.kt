@@ -30,7 +30,7 @@ class WallServiceTest {
 
         val result = WallService.add(tmpPost).id
 
-        assertEquals(1, result)
+        assertEquals(123, result)
     }
 
     @Test
