@@ -29,7 +29,8 @@ object WallService {
                 post.canEdit,
                 post.isPinned,
                 post.markedAsAdds,
-                post.isFavorite
+                post.isFavorite,
+                post.attachment
         )
         return true
     }
@@ -46,7 +47,7 @@ object WallService {
                 "${post.friendsOnly}\n" +
                 "${post.comments}\n" +
                 "${post.likes}\n" +
-                "${post.reposts})\n" +
+                "${post.reposts}\n" +
                 "${post.postType}\n" +
                 "${post.signerId}\n" +
                 "${post.canPin}\n" +
@@ -54,7 +55,8 @@ object WallService {
                 "${post.canEdit}\n" +
                 "${post.isPinned}\n" +
                 "${post.markedAsAdds}\n" +
-                "${post.isFavorite}"
+                "${post.isFavorite}\n" +
+                "${post.attachment}"
         return "лажа какая-то"
     }
 }

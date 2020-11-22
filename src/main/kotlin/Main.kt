@@ -10,9 +10,9 @@ fun main() {
             789,
             987,
             false,
-            Comment(1, true, true),
-            Like(0, true, true, true),
-            Repost(0, false),
+            null,
+            null,
+            null,
             "!",
             0,
             true,
@@ -20,7 +20,8 @@ fun main() {
             true,
             false,
             false,
-            false)
+            false,
+            null)
 
     WallService.add(firstPost)
 
