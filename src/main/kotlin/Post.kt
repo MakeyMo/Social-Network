@@ -19,5 +19,5 @@ data class Post(
         val isPinned: Boolean,
         val markedAsAdds: Boolean,
         val isFavorite: Boolean,
-        val attachment: Attachment?
+        val attachments:List<Attachment>
 )
