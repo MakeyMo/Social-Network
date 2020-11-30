@@ -1,12 +1,13 @@
 object WallService {
     val posts = mutableListOf<Post>()
+    val comments = mutableListOf<Comment>()
 
-    fun add(post: Post): Post {
+    fun addPost(post: Post): Post {
         posts += post
         return posts.last()
     }
 
-    fun update(post: Post): Boolean {
+    fun updatePost(post: Post): Boolean {
         val index = posts.indexOfFirst {it.id == post.id}.takeIf {it >= 0} ?: return false
         val old = posts[index]
         posts[index] = Post(
@@ -30,13 +31,24 @@ object WallService {
                 post.isPinned,
                 post.markedAsAdds,
                 post.isFavorite,
-                post.attachment
+                post.attachments
         )
         return true
     }
 
+    fun createComment(comment: Comment): Boolean {
+        if(posts.any { it.id == comment.postId }) {
+            comments += comment
+        }
+        else {
+            throw PostNotFoundException("Пост с таким ID не найден")
+        }
+        return true
+    }
+
     override fun toString(): String {
-        for (post in posts) return "\n${post.id}\n" +
+        for (post in posts) return "" +
+                "\n${post.id}\n" +
                 "${post.ownerId}\n" +
                 "${post.fromId}\n" +
                 "${post.createdBy}\n" +
@@ -56,7 +68,7 @@ object WallService {
                 "${post.isPinned}\n" +
                 "${post.markedAsAdds}\n" +
                 "${post.isFavorite}\n" +
-                "${post.attachment}"
+                "${post.attachments}"
         return "лажа какая-то"
     }
 }

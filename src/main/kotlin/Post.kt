@@ -9,7 +9,7 @@ data class Post(
         val replyPostId: Int?,
         val friendsOnly: Boolean,
         val comments: Comment?,
-        val likes: Like?,
+        val likes: List<Like>?,
         val reposts: Repost?,
         val postType: String,
         val signerId: Int,
@@ -19,5 +19,5 @@ data class Post(
         val isPinned: Boolean,
         val markedAsAdds: Boolean,
         val isFavorite: Boolean,
-        val attachments:List<Attachment>
+        val attachments: List<Attachment>?
 )

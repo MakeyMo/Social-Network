@@ -21,13 +21,14 @@ fun main() {
             false,
             false,
             false,
-            null)
+            null
+    )
 
-    WallService.add(firstPost)
+    WallService.addPost(firstPost)
 
     println(WallService)
 
-    WallService.update(firstPost)
+    WallService.updatePost(firstPost)
 
     println(WallService)
 }
