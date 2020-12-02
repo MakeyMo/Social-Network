@@ -140,7 +140,6 @@ class WallServiceTest {
     }
 
     @Test(expected = PostNotFoundException::class)
-
     fun shouldThrow() {
         val tmpPost = Post(
                 124,

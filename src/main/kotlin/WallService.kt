@@ -36,14 +36,13 @@ object WallService {
         return true
     }
 
-    fun createComment(comment: Comment): Boolean {
+    fun createComment(comment: Comment) {
         if(posts.any { it.id == comment.postId }) {
             comments += comment
         }
         else {
             throw PostNotFoundException("Пост с таким ID не найден")
         }
-        return true
     }
 
     override fun toString(): String {
