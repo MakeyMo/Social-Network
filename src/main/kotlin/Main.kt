@@ -1,6 +1,6 @@
 fun main() {
 
-    val firstPost: Post = Post(
+    val firstPost = Post(
             123,
             321,
             456,

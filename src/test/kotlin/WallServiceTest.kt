@@ -1,3 +1,4 @@
+import Exceptions.PostNotFoundException
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -124,13 +125,15 @@ class WallServiceTest {
                 987,
                 789,
                 123,
+                323,
                 121212,
                 "yo",
                 654,
                 456,
                 null,
                 emptyArray(),
-                CommentThread(1, emptyArray(), true, true))
+                CommentThread(1, emptyArray(), true, true)
+        )
 
         WallService.addPost(tmpPost)
         WallService.createComment(tmpComment)
@@ -167,13 +170,15 @@ class WallServiceTest {
                 987,
                 789,
                 123,
+                323,
                 121212,
                 "yo",
                 654,
                 456,
                 null,
                 emptyArray(),
-                CommentThread(1, emptyArray(), true, true))
+                CommentThread(1, emptyArray(), true, true)
+        )
 
         WallService.addPost(tmpPost)
         WallService.createComment(tmpComment)

@@ -1,3 +1,5 @@
+import Exceptions.PostNotFoundException
+
 object WallService {
     val posts = mutableListOf<Post>()
     val comments = mutableListOf<Comment>()
@@ -10,34 +12,12 @@ object WallService {
     fun updatePost(post: Post): Boolean {
         val index = posts.indexOfFirst {it.id == post.id}.takeIf {it >= 0} ?: return false
         val old = posts[index]
-        posts[index] = Post(
-                post.id,
-                old.ownerId,
-                old.date,
-                post.createdBy,
-                post.date,
-                post.text,
-                post.replyOwnerId,
-                post.replyPostId,
-                post.friendsOnly,
-                post.comments,
-                post.likes,
-                post.reposts,
-                post.postType,
-                post.signerId,
-                post.canPin,
-                post.canDelete,
-                post.canEdit,
-                post.isPinned,
-                post.markedAsAdds,
-                post.isFavorite,
-                post.attachments
-        )
+        posts[index] = post.copy(ownerId = old.ownerId, date = old.date)
         return true
     }
 
     fun createComment(comment: Comment) {
-        if(posts.any { it.id == comment.postId }) {
+        if(posts.any {it.id == comment.postId}) {
             comments += comment
         }
         else {
