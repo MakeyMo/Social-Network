@@ -2,7 +2,7 @@ import Exceptions.PostNotFoundException
 
 object WallService {
     val posts = mutableListOf<Post>()
-    val comments = mutableListOf<Comment>()
+    private val comments = mutableListOf<Comment>()
 
     fun addPost(post: Post): Post {
         posts += post

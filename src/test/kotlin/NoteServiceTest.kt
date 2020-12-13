@@ -84,7 +84,7 @@ class NoteServiceTest {
             1,
             1
         )
-        val tmpNoteList = mutableListOf<Note>(tmpNote)
+        val tmpNoteList = mutableListOf(tmpNote)
         NoteService.addNote(tmpNote)
 
         val result = NoteService.getNoteList()
@@ -214,7 +214,7 @@ class NoteServiceTest {
             emptyArray(),
             CommentThread(1, emptyArray(), true, true)
         )
-        val tmpCommentsOfNote = listOf<Comment>(tmpComment)
+        val tmpCommentsOfNote = listOf(tmpComment)
         NoteService.addNote(tmpNote)
         NoteService.createComment(tmpComment)
 

@@ -2,13 +2,17 @@ import Exceptions.CommentNotFoundException
 import Exceptions.NoteNotFoundException
 
 object NoteService {
-    val notes = mutableListOf<Note>()
-    val deletedNotes = mutableListOf<Note>()
-    val comments = mutableListOf<Comment>()
-    val deletedComments = mutableListOf<Comment>()
+    private val notes = mutableListOf<Note>()
+    private val deletedNotes = mutableListOf<Note>()
+    private val comments = mutableListOf<Comment>()
+    private val deletedComments = mutableListOf<Comment>()
+    private var lastNoteId = 0
+    private var lastCommentId = 0
 
     fun addNote(note: Note): Note {
-        notes += note
+        val tmpNote = note.copy(id = lastNoteId + 1)
+        lastNoteId += 1
+        notes += tmpNote
         return notes.last()
     }
 
@@ -47,7 +51,9 @@ object NoteService {
     }
 
     fun createComment(comment: Comment): Comment {
-        comments += comment
+        val tmpComment = comment.copy(id = lastCommentId + 1)
+        lastCommentId += 1
+        comments += tmpComment
         return comments.last()
     }
 
@@ -74,7 +80,7 @@ object NoteService {
 
     fun getComments(note: Note): List<Comment> =
         comments.filter { it.noteId == note.id }.also{
-            if (it.isEmpty()) throw NoteNotFoundException("Такой заметки не существует")
+            if (it.isEmpty()) throw CommentNotFoundException("Список комментариев пуст")
         }
 
     fun restoreComment(comment: Comment): Comment {
