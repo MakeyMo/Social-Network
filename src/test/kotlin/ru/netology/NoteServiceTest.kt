@@ -1,7 +1,12 @@
+package ru.netology
+
+import Comment
+import CommentThread
 import Exceptions.CommentNotFoundException
 import Exceptions.NoteNotFoundException
+import Note
+import NoteService
 import junit.framework.Assert.assertEquals
-import org.junit.Assert
 import org.junit.Test
 
 class NoteServiceTest {
@@ -17,7 +22,7 @@ class NoteServiceTest {
             null,
             1,
             1
-            )
+        )
 
         val result = NoteService.addNote(tmpNote)
 
