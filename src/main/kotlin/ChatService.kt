@@ -17,14 +17,12 @@ object ChatService {
     }
 
     fun deleteChat(userId: Int, chat: Chat) {
-        if (chats.any {it.id != chat.id}) {
+        if (chats.none {it.id == chat.id}) {
             throw ChatNotFoundException("Такого чата не существует")
         }
         if (chat.participantsId.contains(userId)) {
             chats -= chat
-            messages.removeAll {
-                it.chatId == chat.id
-                }
+            messages.removeAll { it.chatId == chat.id }
         } else {
             throw ChatMembershipException("Вы не являетесь участником данного чата")
         }
@@ -56,7 +54,7 @@ object ChatService {
     }
 
     fun createMessage(userId: Int, recipientId: Int, chat: Chat, message: Message): Message {
-        if (chats.any{it.id != chat.id}) {
+        if (chats.none{it.id == chat.id}) {
             createChat(userId, recipientId, chat)
         }
         val tmpMessage = message.copy(authorId = userId, chatId = chat.id)
@@ -66,7 +64,7 @@ object ChatService {
 
 
     fun deleteMessage(userId: Int, message: Message) {
-        if (messages.any {it.chatId != message.chatId}) {
+        if (messages.none {it.chatId == message.chatId}) {
             throw MessageNotFoundException("Такого сообщения не существует")
         }
         if (message.authorId == userId) {
