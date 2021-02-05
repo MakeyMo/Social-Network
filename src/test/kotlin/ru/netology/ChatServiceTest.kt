@@ -1,15 +1,12 @@
 package ru.netology
 
 import Chat
-import ChatService.chats
-import ChatService.messages
 import Exceptions.ChatMembershipException
 import Exceptions.ChatNotFoundException
 import Exceptions.MessageAuthorshipException
 import Exceptions.MessageNotFoundException
 import Message
 import org.junit.Test
-
 import org.junit.Assert.*
 
 class ChatServiceTest {
@@ -39,8 +36,7 @@ class ChatServiceTest {
 
     @Test
     fun deleteChat() {
-        messages.clear()
-        chats.clear()
+        ChatService.clearChatService()
 
         val userId = 100
         val recipientId = 200
@@ -60,15 +56,14 @@ class ChatServiceTest {
         val newChat = ChatService.createChat(userId, recipientId, tmpChat)
 
         ChatService.deleteChat(userId, newChat)
-        val result = chats
+        val result = ChatService.getAllChatsForUser(userId)
 
         assertEquals(mutableListOf<Chat>(), result)
     }
 
     @Test
     fun getAllChatsForUser() {
-        messages.clear()
-        chats.clear()
+        ChatService.clearChatService()
 
         val userId = 100
         val recipientId = 200
@@ -94,8 +89,7 @@ class ChatServiceTest {
 
     @Test
     fun getUnreadChatsCount() {
-        messages.clear()
-        chats.clear()
+        ChatService.clearChatService()
 
         val userId = 100
         val recipientId = 200
@@ -121,8 +115,7 @@ class ChatServiceTest {
 
     @Test
     fun createMessage() {
-        messages.clear()
-        chats.clear()
+        ChatService.clearChatService()
 
         val chatId = 1
         val userId = 100
@@ -147,41 +140,9 @@ class ChatServiceTest {
         assertEquals(tmpMessage, result)
     }
 
-
-    @Test
-    fun deleteMessage() {
-        messages.clear()
-        chats.clear()
-
-        val chatId = 1
-        val userId = 100
-        val recipientId = 200
-        val text = "Text"
-        val tmpMessage = Message(
-            chatId,
-            userId,
-            java.util.Calendar.getInstance(),
-            text,
-            false,
-            null)
-        val tmpChat = Chat(chatId,
-            mutableListOf(),
-            java.util.Calendar.getInstance(),
-            "tmpChat",
-            mutableListOf(tmpMessage),
-            null)
-        ChatService.createMessage(userId, recipientId, tmpChat, tmpMessage)
-
-        ChatService.deleteMessage(userId, tmpMessage)
-        val result = messages
-
-        assertEquals(mutableListOf<Message>(), result)
-    }
-
     @Test
     fun editMessage() {
-        messages.clear()
-        chats.clear()
+        ChatService.clearChatService()
 
         val chatId = 1
         val userId = 100
@@ -209,8 +170,7 @@ class ChatServiceTest {
 
     @Test
     fun getSomeMessagesFromChat() {
-        messages.clear()
-        chats.clear()
+        ChatService.clearChatService()
 
         val userId = 100
         val recipientId = 200
@@ -293,9 +253,6 @@ class ChatServiceTest {
 
     @Test(expected = ChatNotFoundException::class)
     fun willThrow() {
-        messages.clear()
-        chats.clear()
-
         val chatId = 1
         val userId = 100
         val recipientId = 200

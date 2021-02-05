@@ -5,9 +5,14 @@ import Exceptions.MessageNotFoundException
 
 object ChatService {
 
-    val chats = mutableListOf<Chat>()
-    val messages = mutableListOf<Message>()
+    private val chats = mutableListOf<Chat>()
+    private val messages = mutableListOf<Message>()
     private var lastChatId = 0
+
+    fun clearChatService() {
+        chats.clear()
+        messages.clear()
+    }
 
     fun createChat(userId: Int, recipientId: Int, chat: Chat): Chat {
         val tmpChat = chat.copy(id = lastChatId + 1, participantsId = mutableListOf(userId, recipientId))
@@ -70,7 +75,7 @@ object ChatService {
         if (message.authorId == userId) {
             messages -= message
             chats.forEach {
-                if (it.id == message.chatId && it.messages.isEmpty()) {
+                if (it.id == message.chatId && it.messages.size == 1) {
                     chats -= it
                 }
             }
