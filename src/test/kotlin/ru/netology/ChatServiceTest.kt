@@ -35,33 +35,6 @@ class ChatServiceTest {
     }
 
     @Test
-    fun deleteChat() {
-        ChatService.clearChatService()
-
-        val userId = 100
-        val recipientId = 200
-        val chatId = 1
-        val tmpMessage = Message(chatId,
-            userId,
-            java.util.Calendar.getInstance(),
-            "text",
-            false,
-            null)
-        val tmpChat = Chat(chatId,
-            mutableListOf(),
-            java.util.Calendar.getInstance(),
-            "tmpChat",
-            mutableListOf(tmpMessage),
-            null)
-        val newChat = ChatService.createChat(userId, recipientId, tmpChat)
-
-        ChatService.deleteChat(userId, newChat)
-        val result = ChatService.getAllChatsForUser(userId)
-
-        assertEquals(mutableListOf<Chat>(), result)
-    }
-
-    @Test
     fun getAllChatsForUser() {
         ChatService.clearChatService()
 
@@ -203,6 +176,8 @@ class ChatServiceTest {
 
     @Test(expected = ChatMembershipException::class)
     fun mustThrow() {
+        ChatService.clearChatService()
+
         val chatId = 1
         val userId = 100
         val recipientId = 200
@@ -221,6 +196,7 @@ class ChatServiceTest {
             "tmpChat",
             mutableListOf(tmpMessage),
             null)
+
         ChatService.createMessage(userId, recipientId, tmpChat, tmpMessage)
 
         ChatService.deleteChat(anotherUserId, tmpChat)
@@ -228,6 +204,8 @@ class ChatServiceTest {
 
     @Test(expected = MessageAuthorshipException::class)
     fun shouldThrow() {
+        ChatService.clearChatService()
+
         val chatId = 1
         val userId = 100
         val recipientId = 200
@@ -246,6 +224,7 @@ class ChatServiceTest {
             "tmpChat",
             mutableListOf(tmpMessage),
             null)
+
         ChatService.createMessage(userId, recipientId, tmpChat, tmpMessage)
 
         ChatService.deleteMessage(anotherUserId, tmpMessage)
@@ -253,6 +232,8 @@ class ChatServiceTest {
 
     @Test(expected = ChatNotFoundException::class)
     fun willThrow() {
+        ChatService.clearChatService()
+
         val chatId = 1
         val userId = 100
         val recipientId = 200
@@ -262,14 +243,14 @@ class ChatServiceTest {
             "tmpChat",
             mutableListOf(),
             null)
-        ChatService.createChat(userId, recipientId, tmpChat)
-        ChatService.deleteChat(userId, tmpChat)
 
         ChatService.deleteChat(userId, tmpChat)
     }
 
     @Test(expected = MessageNotFoundException::class)
     fun isThrow() {
+        ChatService.clearChatService()
+
         val chatId = 1
         val userId = 100
         val text = "Text"
